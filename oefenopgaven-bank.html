@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oefenopgaven-bank (met hints en oplossingen) – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<main><h1>Oefenopgaven-bank (met hints en oplossingen)</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><p>CodeCoach gebruikt deze opgaven als voorbeeld en genereert varianten op niveau. Oplossingen alleen op verzoek van de student tonen.</p>
+<h2>Beginner</h2>
+<h3>B1 – FizzBuzz (Python)</h3>
+<p>Print de getallen 1 t/m 30. Bij veelvouden van 3 print je &#x27;Fizz&#x27;, van 5 &#x27;Buzz&#x27;, van beide &#x27;FizzBuzz&#x27;.</p>
+<p>Hint: gebruik de modulo-operator % en controleer eerst de combinatie (15).</p>
+<pre><code>for i in range(1, 31):
+    if i % 15 == 0: print(&quot;FizzBuzz&quot;)
+    elif i % 3 == 0: print(&quot;Fizz&quot;)
+    elif i % 5 == 0: print(&quot;Buzz&quot;)
+    else: print(i)</code></pre>
+<h3>B2 – Temperatuur omrekenen</h3>
+<p>Vraag een temperatuur in Celsius en print Fahrenheit (F = C × 9/5 + 32). Vang ongeldige invoer af.</p>
+<p>Hint: try/except ValueError rond float(input()).</p>
+<h3>B3 – Woorden tellen</h3>
+<p>Tel hoe vaak elk woord voorkomt in een zin. Voorbeeld: &#x27;de kat en de hond&#x27; → {&#x27;de&#x27;: 2, &#x27;kat&#x27;: 1, &#x27;en&#x27;: 1, &#x27;hond&#x27;: 1}.</p>
+<p>Hint: split() en een dictionary met .get(woord, 0) + 1.</p>
+<h3>B4 – Getal raden</h3>
+<p>De computer kiest een getal 1–100; de speler raadt; geef &#x27;hoger&#x27;/&#x27;lager&#x27; tot het klopt en tel de pogingen.</p>
+<p>Hint: while-loop; random.randint.</p>
+<h3>B5 – Even/oneven filter (JavaScript)</h3>
+<p>Schrijf een functie die uit een array alleen de even getallen teruggeeft. Hint: filter en %.</p>
+<h2>Gemiddeld</h2>
+<h3>G1 – Bankrekening (OOP, Java/C#/Python)</h3>
+<p>Maak een klasse Bankrekening met saldo, storten(bedrag), opnemen(bedrag). Opnemen boven saldo geeft een fout; negatief bedrag is ongeldig. Schrijf 4 unit tests.</p>
+<p>Hint: valideer eerst, wijzig daarna het saldo; gebruik een specifieke exceptie.</p>
+<pre><code>class Bankrekening:
+    def __init__(self, saldo: float = 0):
+        self._saldo = saldo
+    @property
+    def saldo(self): return self._saldo
+    def storten(self, bedrag):
+        if bedrag &lt;= 0: raise ValueError(&quot;Bedrag moet positief zijn&quot;)
+        self._saldo += bedrag
+    def opnemen(self, bedrag):
+        if bedrag &lt;= 0: raise ValueError(&quot;Bedrag moet positief zijn&quot;)
+        if bedrag &gt; self._saldo: raise ValueError(&quot;Onvoldoende saldo&quot;)
+        self._saldo -= bedrag</code></pre>
+<h3>G2 – Palindroom</h3>
+<p>Controleer of een zin een palindroom is, negeer spaties, leestekens en hoofdletters (&#x27;Meet systeem&#x27; → True).</p>
+<p>Hint: filter op isalnum(), lower(), vergelijk met omgekeerde.</p>
+<h3>G3 – CSV-rapport</h3>
+<p>Lees cijfers.csv (naam, vak, cijfer) en print per student het gemiddelde, gesorteerd van hoog naar laag.</p>
+<p>Hint: csv.DictReader; dictionary naam → lijst cijfers; sorted met key.</p>
+<h3>G4 – To-do API (REST)</h3>
+<p>Ontwerp endpoints voor een to-do lijst: lijst ophalen, item toevoegen, afvinken, verwijderen. Geef methode, pad, request- en responsevoorbeeld.</p>
+<p>Hint: GET /todos, POST /todos, PATCH /todos/{id}, DELETE /todos/{id}; statuscodes 200/201/404.</p>
+<h3>G5 – SQL-joins</h3>
+<p>Tabellen studenten(id, naam, klas_id), klassen(id, naam). Geef per klas het aantal studenten, ook klassen zonder studenten.</p>
+<pre><code>SELECT k.naam, COUNT(s.id) AS aantal
+FROM klassen k
+LEFT JOIN studenten s ON s.klas_id = k.id
+GROUP BY k.naam
+ORDER BY aantal DESC;</code></pre>
+<h3>G6 – Recursie: faculteit en Fibonacci</h3>
+<p>Implementeer beide recursief; leg uit waarom naïeve Fibonacci traag is en verbeter met memoization.</p>
+<h2>Gevorderd</h2>
+<h3>V1 – Strategy pattern</h3>
+<p>Een webshop berekent verzendkosten per land met verschillende regels. Implementeer een Strategy-interface en drie strategieën; voeg een nieuwe strategie toe zonder bestaande code te wijzigen.</p>
+<h3>V2 – Veilige login</h3>
+<p>Bouw registratie en login met gehashte wachtwoorden (bcrypt/argon2), geparametriseerde queries en rate limiting. Schrijf tests voor verkeerde wachtwoorden.</p>
+<h3>V3 – Complexiteitsanalyse</h3>
+<p>Implementeer bubble sort en merge sort, meet de looptijd voor n = 1.000 / 10.000 / 100.000 en verklaar met Big-O.</p>
+<h3>V4 – CI-pipeline</h3>
+<p>Voeg aan je project een GitHub Actions-workflow toe die bij elke push linting en tests draait; laat een PR bewust falen en repareer.</p>
+<h3>V5 – Refactor-kata</h3>
+<p>Neem een functie van 80+ regels uit een eerder project en refactor naar functies van max. 20 regels zonder gedrag te veranderen; bewijs met tests.</p>
+<h2>Zelftoets-vragen (per week te gebruiken)</h2>
+<ul><li>Leg in eigen woorden uit wat het concept van deze week doet en wanneer je het gebruikt.</li><li>Geef een voorbeeld uit het dagelijks leven.</li><li>Wat is de meest voorkomende fout en hoe herken je die?</li><li>Schrijf uit je hoofd een minimaal voorbeeld van 5 regels.</li></ul></main><footer>CodeCoach Kennisbank · versie 1.0 · september 2026 · Pas dit materiaal aan op je eigen opleiding.</footer></body></html>

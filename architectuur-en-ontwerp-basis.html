@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Architectuur en ontwerp – basis voor studentprojecten – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<main><h1>Architectuur en ontwerp – basis voor studentprojecten</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><h2>Van idee naar ontwerp in 5 stappen</h2>
+<ol><li>Probleem en doelgroep in 2 zinnen.</li><li>User stories met acceptatiecriteria (MoSCoW).</li><li>Domeinmodel: welke &#x27;dingen&#x27; zijn er (Student, Cursus, Inschrijving) en hoe hangen ze samen?</li><li>Technische keuzes: taal, framework, database, hosting – met één zin waarom.</li><li>Walking skeleton: kleinste werkende keten van UI → logica → data.</li></ol>
+<h2>Lagenarchitectuur (voor de meeste schoolprojecten)</h2>
+<table><thead><tr><th>Laag</th><th>Verantwoordelijkheid</th><th>Voorbeeld</th></tr></thead><tbody><tr><td>Presentatie (UI/API)</td><td>Invoer ontvangen, uitvoer tonen</td><td>Flask/FastAPI routes, Razor pages, React</td></tr><tr><td>Logica (services/domein)</td><td>Regels en berekeningen</td><td>InschrijvingService.schrijfIn()</td></tr><tr><td>Data (repositories)</td><td>Opslaan en ophalen</td><td>StudentRepository met SQL/ORM</td></tr></tbody></table>
+<p>Regel: een laag praat alleen met de laag eronder. Logica bevat geen print/HTML en geen SQL.</p>
+<h2>Klassendiagram in tekst (Mermaid)</h2>
+<pre><code>classDiagram
+  class Student { +int id +string naam +schrijfIn(Cursus) }
+  class Cursus { +int id +string titel +int maxPlaatsen }
+  class Inschrijving { +date datum +Status status }
+  Student &quot;1&quot; --&gt; &quot;*&quot; Inschrijving
+  Cursus &quot;1&quot; --&gt; &quot;*&quot; Inschrijving</code></pre>
+<h2>ERD in tekst</h2>
+<pre><code>studenten(id PK, naam, email UNIQUE)
+cursussen(id PK, titel, max_plaatsen)
+inschrijvingen(id PK, student_id FK→studenten.id, cursus_id FK→cursussen.id, datum, status)</code></pre>
+<h2>REST API-ontwerp</h2>
+<table><thead><tr><th>Actie</th><th>Methode + pad</th><th>Status</th></tr></thead><tbody><tr><td>Alle cursussen</td><td>GET /cursussen</td><td>200</td></tr><tr><td>Eén cursus</td><td>GET /cursussen/{id}</td><td>200 / 404</td></tr><tr><td>Cursus aanmaken</td><td>POST /cursussen</td><td>201</td></tr><tr><td>Cursus wijzigen</td><td>PUT of PATCH /cursussen/{id}</td><td>200</td></tr><tr><td>Cursus verwijderen</td><td>DELETE /cursussen/{id}</td><td>204</td></tr><tr><td>Inschrijven</td><td>POST /cursussen/{id}/inschrijvingen</td><td>201 / 409 (vol)</td></tr></tbody></table>
+<ul><li>Zelfstandige naamwoorden in het meervoud; geen werkwoorden in paden.</li><li>JSON in en uit; consistente foutstructuur {&quot;error&quot;: &quot;...&quot;}.</li><li>Versie in pad (/api/v1) als het een extern gebruikte API is.</li></ul>
+<h2>Design patterns die studenten vaak nodig hebben</h2>
+<table><thead><tr><th>Pattern</th><th>Wanneer</th><th>Voorbeeld</th></tr></thead><tbody><tr><td>Strategy</td><td>Verschillende regels voor hetzelfde doel</td><td>Verzendkosten per land</td></tr><tr><td>Factory</td><td>Objecten maken op basis van invoer</td><td>Maak juiste Betaalmethode</td></tr><tr><td>Observer</td><td>Meerdere onderdelen reageren op een gebeurtenis</td><td>UI updaten bij nieuwe score</td></tr><tr><td>Repository</td><td>Data-toegang scheiden van logica</td><td>StudentRepository</td></tr><tr><td>Singleton (voorzichtig)</td><td>Precies één instantie</td><td>Configuratie – liever dependency injection</td></tr></tbody></table>
+<h2>SOLID in één zin per letter</h2>
+<ul><li>S – Een klasse heeft één reden om te veranderen.</li><li>O – Uitbreiden zonder bestaande code te wijzigen.</li><li>L – Een subklasse moet overal werken waar de superklasse werkt.</li><li>I – Liever meerdere kleine interfaces dan één grote.</li><li>D – Hang af van abstracties (interfaces), niet van concrete klassen.</li></ul>
+<h2>Architectuurbeslissing vastleggen (ADR-mini)</h2>
+<pre><code># ADR-001: Keuze database
+Context: kleine webapp, 1 team, geen serverbeheer.
+Beslissing: SQLite in ontwikkeling, PostgreSQL in productie via ORM.
+Gevolgen: eenvoudig starten; migraties nodig; ORM leren.</code></pre></main><footer>CodeCoach Kennisbank · versie 1.0 · september 2026 · Pas dit materiaal aan op je eigen opleiding.</footer></body></html>

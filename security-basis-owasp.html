@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security-basis voor studentprojecten (OWASP Top 10 in gewone taal) – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<main><h1>Security-basis voor studentprojecten (OWASP Top 10 in gewone taal)</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><p>Gebaseerd op de OWASP Top 10-categorieën; raadpleeg owasp.org voor de actuele lijst en details.</p>
+<table><thead><tr><th>Risico</th><th>Wat is het</th><th>Hoe voorkom je het in je project</th></tr></thead><tbody><tr><td>Broken Access Control</td><td>Gebruikers kunnen dingen zien/doen die niet mogen</td><td>Controleer rechten server-side bij elke request; deny by default</td></tr><tr><td>Cryptographic Failures</td><td>Gevoelige data slecht beschermd</td><td>HTTPS; wachtwoorden hashen (bcrypt/argon2); geen eigen crypto</td></tr><tr><td>Injection</td><td>Invoer wordt als code uitgevoerd (SQL, OS, LDAP)</td><td>Geparametriseerde queries/ORM; invoer valideren</td></tr><tr><td>Insecure Design</td><td>Beveiliging niet meegenomen in ontwerp</td><td>Threat modeling: wat kan misgaan? Denk bij elke user story aan misbruik</td></tr><tr><td>Security Misconfiguration</td><td>Standaardwachtwoorden, debug aan, open poorten</td><td>Debug uit in productie; secrets in env; least privilege</td></tr><tr><td>Vulnerable Components</td><td>Verouderde libraries met bekende lekken</td><td>Dependabot/npm audit/pip-audit; regelmatig updaten</td></tr><tr><td>Identification &amp; Authentication Failures</td><td>Zwakke login, sessies</td><td>Sterk wachtwoordbeleid, rate limiting, MFA waar mogelijk, veilige sessiecookies</td></tr><tr><td>Software &amp; Data Integrity Failures</td><td>Onbetrouwbare updates/pipelines</td><td>Alleen vertrouwde pakketbronnen; CI met gecontroleerde acties</td></tr><tr><td>Logging &amp; Monitoring Failures</td><td>Aanvallen worden niet opgemerkt</td><td>Log logins en fouten (zonder gevoelige data); bekijk logs</td></tr><tr><td>Server-Side Request Forgery</td><td>Server haalt URL&#x27;s op die de aanvaller kiest</td><td>Whitelist van toegestane hosts; valideer URL&#x27;s</td></tr></tbody></table>
+<h2>Veilige code – voorbeeld injectie</h2>
+<pre><code># ONVEILIG
+cursor.execute(f&quot;SELECT * FROM users WHERE naam = &#x27;{naam}&#x27;&quot;)
+
+# VEILIG (geparametriseerd)
+cursor.execute(&quot;SELECT * FROM users WHERE naam = ?&quot;, (naam,))</code></pre>
+<h2>Secrets beheren</h2>
+<pre><code># .env (NIET in Git)      # .env.example (WEL in Git)
+DB_PASSWORD=geheim123      DB_PASSWORD=
+API_KEY=abc                API_KEY=
+
+# Python
+import os
+from dotenv import load_dotenv
+load_dotenv()
+wachtwoord = os.getenv(&quot;DB_PASSWORD&quot;)</code></pre>
+<h2>Security-checklist vóór inleveren</h2>
+<ul><li>Geen secrets in repo (controleer geschiedenis).</li><li>Alle queries geparametriseerd.</li><li>Wachtwoorden gehasht.</li><li>Invoer gevalideerd; output ge-escaped.</li><li>Afhankelijkheden gescand.</li><li>Rechtencontrole op elke gevoelige actie.</li><li>Foutmeldingen lekken geen technische details naar de gebruiker.</li></ul>
+<h2>Ethiek</h2>
+<p>Test alleen systemen waarvoor je expliciete toestemming hebt (eigen project, oefenomgevingen zoals OWASP Juice Shop). CodeCoach helpt niet bij het aanvallen van systemen van anderen.</p></main><footer>CodeCoach Kennisbank · versie 1.0 · september 2026 · Pas dit materiaal aan op je eigen opleiding.</footer></body></html>

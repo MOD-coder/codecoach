@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coderichtlijnen voor studenten – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<main><h1>Coderichtlijnen voor studenten</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><p>Deze richtlijnen gebruikt CodeCoach bij code reviews. Vervang of vul aan met de richtlijnen van je opleiding.</p>
+<h2>1. Algemene principes</h2>
+<ul><li>Leesbaarheid boven slimheid: code wordt vaker gelezen dan geschreven.</li><li>Kleine functies met één verantwoordelijkheid (max. ± 20–30 regels).</li><li>Betekenisvolle namen: een naam vertelt wat iets is of doet (aantalStudenten, berekenTotaal()).</li><li>Geen magic numbers: gebruik constanten (MAX_POGINGEN = 3).</li><li>DRY – Don&#x27;t Repeat Yourself: herhaalde code wordt een functie.</li><li>KISS – Keep It Simple: kies de eenvoudigste oplossing die werkt.</li><li>Fouten netjes afhandelen: nooit lege catch/except-blokken.</li><li>Geen wachtwoorden, API-keys of verbindingsstrings in code; gebruik omgevingsvariabelen of een .env-bestand dat in .gitignore staat.</li></ul>
+<h2>2. Naamgeving per taal</h2>
+<table><thead><tr><th>Taal</th><th>Variabelen/functies</th><th>Klassen</th><th>Constanten</th><th>Bestanden</th></tr></thead><tbody><tr><td>Python</td><td>snake_case (bereken_totaal)</td><td>PascalCase (Bankrekening)</td><td>UPPER_SNAKE (MAX_POGINGEN)</td><td>snake_case.py</td></tr><tr><td>Java</td><td>camelCase (berekenTotaal)</td><td>PascalCase</td><td>UPPER_SNAKE</td><td>PascalCase.java (één publieke klasse per bestand)</td></tr><tr><td>C#</td><td>camelCase lokaal; PascalCase methoden/properties</td><td>PascalCase</td><td>PascalCase of UPPER_SNAKE</td><td>PascalCase.cs</td></tr><tr><td>JavaScript/TypeScript</td><td>camelCase</td><td>PascalCase</td><td>UPPER_SNAKE</td><td>kebab-case.js of camelCase.js</td></tr><tr><td>SQL</td><td>snake_case tabellen en kolommen (student_id)</td><td>—</td><td>—</td><td>—</td></tr></tbody></table>
+<h2>3. Structuur en opmaak</h2>
+<ul><li>Gebruik de standaardformatter: Python → black/PEP 8, Java → Google Java Style, C# → dotnet format, JS/TS → Prettier.</li><li>Eén statement per regel; consistente inspringing (4 spaties Python/Java/C#, 2 spaties JS).</li><li>Imports bovenaan, gegroepeerd (standaardbibliotheek, externe pakketten, eigen modules).</li><li>Maximaal ± 100 tekens per regel.</li><li>Scheid logica (berekeningen) van presentatie (print/UI) en data-toegang.</li></ul>
+<h2>4. Commentaar en documentatie</h2>
+<ul><li>Commentaar legt WAAROM uit, niet WAT (de code zelf laat zien wat er gebeurt).</li><li>Elke publieke functie/klasse krijgt een docstring/JavaDoc/XML-doc met doel, parameters en returnwaarde.</li><li>Verwijder uitgecommentarieerde code voordat je commit.</li><li>Een README beschrijft: doel, installatie, gebruik, structuur, auteurs (zie README-template).</li></ul>
+<h2>5. Foutafhandeling</h2>
+<ul><li>Vang alleen fouten die je kunt afhandelen; laat andere netjes doorgeven.</li><li>Geef de gebruiker een begrijpelijke melding, log de technische details.</li><li>Valideer invoer aan de rand van je programma (gebruikersinvoer, bestanden, API&#x27;s).</li><li>Gebruik specifieke exceptietypen (ValueError, FileNotFoundError) in plaats van alles vangen.</li></ul>
+<h2>6. Veiligheid (minimum)</h2>
+<ul><li>Gebruik altijd geparametriseerde queries (nooit SQL samenstellen met string-concatenatie).</li><li>Hash wachtwoorden (bcrypt/argon2), sla ze nooit in platte tekst op.</li><li>Valideer en escape gebruikersinvoer in webapplicaties (XSS).</li><li>Houd afhankelijkheden up-to-date; controleer op bekende kwetsbaarheden.</li><li>Secrets nooit in Git; gebruik .gitignore en een voorbeeldbestand (.env.example).</li></ul>
+<h2>7. Testbaarheid</h2>
+<ul><li>Schrijf functies die een waarde teruggeven in plaats van direct printen.</li><li>Vermijd globale state; geef afhankelijkheden mee als parameters.</li><li>Elke bugfix krijgt een test die de bug reproduceert.</li></ul>
+<h2>8. Voorbeeld: vóór en na</h2>
+<pre><code># Vóór
+def f(l):
+    t=0
+    for i in l:
+        if i&gt;0: t=t+i
+    return t
+
+# Na
+def som_positieve_getallen(getallen: list[float]) -&gt; float:
+    &quot;&quot;&quot;Telt alleen de positieve getallen uit de lijst op.&quot;&quot;&quot;
+    return sum(g for g in getallen if g &gt; 0)</code></pre></main><footer>CodeCoach Kennisbank · versie 1.0 · september 2026 · Pas dit materiaal aan op je eigen opleiding.</footer></body></html>

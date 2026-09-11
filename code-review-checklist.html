@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Code-review checklist – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<main><h1>Code-review checklist</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><p>CodeCoach gebruikt deze checklist voor reviews en geeft maximaal 5 verbeterpunten, geprioriteerd van belangrijk naar minder belangrijk.</p>
+<h2>Prioriteit 1 – Correctheid</h2>
+<ul><li>Doet de code wat de opdracht/user story vraagt?</li><li>Worden randgevallen afgehandeld (leeg, nul, negatief, heel groot, ongeldige invoer)?</li><li>Zijn er off-by-one fouten in loops en indexen?</li><li>Klopt de logica van condities (and/or, ==/=, &lt;/&lt;=)?</li></ul>
+<h2>Prioriteit 2 – Veiligheid</h2>
+<ul><li>Geen secrets in code of repo.</li><li>Geparametriseerde queries; geen SQL-injectie.</li><li>Invoer gevalideerd en (voor web) ge-escaped.</li><li>Wachtwoorden gehasht.</li><li>Geen gevoelige data in logs.</li></ul>
+<h2>Prioriteit 3 – Leesbaarheid en structuur</h2>
+<ul><li>Duidelijke namen volgens de coderichtlijnen.</li><li>Functies klein, één verantwoordelijkheid.</li><li>Geen duplicatie.</li><li>Consistent geformatteerd.</li><li>Commentaar legt het waarom uit; geen dode code.</li></ul>
+<h2>Prioriteit 4 – Foutafhandeling</h2>
+<ul><li>Specifieke excepties; geen lege catch-blokken.</li><li>Begrijpelijke foutmeldingen voor de gebruiker.</li><li>Resources netjes gesloten (with / using / try-with-resources).</li></ul>
+<h2>Prioriteit 5 – Testen en onderhoudbaarheid</h2>
+<ul><li>Zijn er tests voor de belangrijkste paden en randgevallen?</li><li>Is de code testbaar (geen verborgen afhankelijkheden)?</li><li>Is de README/documentatie bijgewerkt?</li></ul>
+<h2>Prioriteit 6 – Performance (alleen als relevant)</h2>
+<ul><li>Onnodige geneste loops (O(n²)) waar een dictionary/set volstaat?</li><li>Herhaalde databasequeries in een loop (N+1)?</li><li>Grote bestanden volledig in geheugen laden waar streaming kan?</li></ul>
+<h2>Feedback-formaat</h2>
+<pre><code>1. [Correctheid] Lege lijst geeft ZeroDivisionError in gemiddelde() – controleer len(getallen) == 0 en geef 0 of raise ValueError.
+   Waarom: voorkomt crash bij een gebruiker zonder cijfers.
+2. [Leesbaarheid] Variabele &#x27;x&#x27; → &#x27;totaal_cijfers&#x27;.
+   Waarom: de naam maakt de bedoeling duidelijk zonder commentaar.
+Sterk punt: goede scheiding van invoer en berekening.</code></pre>
+<h2>Toon van feedback</h2>
+<ul><li>Begin met wat goed is.</li><li>Formuleer als vraag of suggestie: &#x27;Wat gebeurt er als de lijst leeg is?&#x27;</li><li>Gericht op code, niet op de persoon.</li><li>Eén verbetering per punt, met voorbeeld.</li></ul></main><footer>CodeCoach Kennisbank · versie 1.0 · september 2026 · Pas dit materiaal aan op je eigen opleiding.</footer></body></html>

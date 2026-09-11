@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projectplanning – templates – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<main><h1>Projectplanning – templates</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><h2>User story-template</h2>
+<pre><code>Als &lt;rol&gt; wil ik &lt;doel/actie&gt; zodat &lt;waarde/reden&gt;.
+
+Acceptatiecriteria (Given/When/Then):
+- Gegeven &lt;situatie&gt;, wanneer &lt;actie&gt;, dan &lt;resultaat&gt;.
+- ...
+Prioriteit (MoSCoW): Must / Should / Could / Won&#x27;t
+Schatting: S / M / L (of story points)</code></pre>
+<p>Voorbeeld: Als student wil ik mijn boodschappenlijst kunnen opslaan, zodat ik hem later weer kan openen. Gegeven een lijst met items, wanneer ik op Opslaan klik, dan staat de lijst in lijst.json en zie ik &#x27;Opgeslagen&#x27;.</p>
+<h2>MoSCoW-prioritering</h2>
+<table><thead><tr><th>Categorie</th><th>Betekenis</th><th>Vuistregel</th></tr></thead><tbody><tr><td>Must have</td><td>Zonder dit is het project mislukt</td><td>Max. 60% van de tijd</td></tr><tr><td>Should have</td><td>Belangrijk, maar er is een workaround</td><td>± 20%</td></tr><tr><td>Could have</td><td>Leuk als er tijd over is</td><td>± 20%</td></tr><tr><td>Won&#x27;t have (nu)</td><td>Bewust buiten scope</td><td>Vastleggen om discussie te voorkomen</td></tr></tbody></table>
+<h2>Definition of Done (voorbeeld)</h2>
+<ul><li>Code voldoet aan de coderichtlijnen.</li><li>Unit tests geschreven en groen.</li><li>Gereviewd door een teamgenoot via PR.</li><li>Gemerged in main.</li><li>Documentatie/README bijgewerkt.</li><li>Gedemonstreerd aan de product owner/docent.</li></ul>
+<h2>Sprint-template (2 weken)</h2>
+<table><thead><tr><th>Onderdeel</th><th>Inhoud</th></tr></thead><tbody><tr><td>Sprintdoel</td><td>Eén zin: wat kan de gebruiker aan het eind?</td></tr><tr><td>Geselecteerde user stories</td><td>Lijst met MoSCoW en schatting</td></tr><tr><td>Taakverdeling</td><td>Wie doet wat; max. 2 taken per persoon tegelijk</td></tr><tr><td>Risico&#x27;s</td><td>Wat kan misgaan en wat doen we dan?</td></tr><tr><td>Ceremonies</td><td>Daily stand-up (15 min), review, retrospective</td></tr></tbody></table>
+<h2>Daily stand-up (3 vragen)</h2>
+<ul><li>Wat heb ik gisteren gedaan?</li><li>Wat ga ik vandaag doen?</li><li>Waar loop ik vast?</li></ul>
+<h2>Retrospective-template</h2>
+<ul><li>Wat ging goed? (behouden)</li><li>Wat ging minder? (stoppen)</li><li>Wat gaan we anders doen? (starten) – maximaal 2 concrete acties met eigenaar</li></ul>
+<h2>Planning van een schoolproject in 4 sprints (8 weken)</h2>
+<table><thead><tr><th>Sprint</th><th>Focus</th><th>Oplevering</th></tr></thead><tbody><tr><td>1</td><td>Requirements, user stories, ontwerp (ERD/klassendiagram), repo opzetten, walking skeleton</td><td>Werkend &#x27;hello world&#x27; van de hele keten</td></tr><tr><td>2</td><td>Must-haves bouwen</td><td>Kernfunctionaliteit met tests</td></tr><tr><td>3</td><td>Must-haves afronden, should-haves, integratie</td><td>Demo-versie</td></tr><tr><td>4</td><td>Could-haves, bugfixes, documentatie, presentatie</td><td>Eindproduct + verslag + presentatie</td></tr></tbody></table>
+<h2>Risico-checklist</h2>
+<ul><li>Te grote scope → MoSCoW strak houden.</li><li>Teamlid valt uit → kennis delen via PR-reviews en documentatie.</li><li>Techniek te nieuw → spike van max. 1 dag, daarna beslissen.</li><li>Laat beginnen met integratie → walking skeleton in sprint 1.</li></ul></main><footer>CodeCoach Kennisbank · versie 1.0 · september 2026 · Pas dit materiaal aan op je eigen opleiding.</footer></body></html>

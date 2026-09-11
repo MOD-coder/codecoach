@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Git-workflow voor studentprojecten – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<main><h1>Git-workflow voor studentprojecten</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><h2>Basisbegrippen</h2>
+<table><thead><tr><th>Begrip</th><th>Betekenis</th></tr></thead><tbody><tr><td>Repository (repo)</td><td>Map met je project en de volledige geschiedenis</td></tr><tr><td>Commit</td><td>Een opgeslagen &#x27;foto&#x27; van je wijzigingen met een bericht</td></tr><tr><td>Branch</td><td>Een aparte lijn van ontwikkeling (bijv. feature/login)</td></tr><tr><td>Merge</td><td>Wijzigingen van de ene branch in de andere samenvoegen</td></tr><tr><td>Pull request (PR)</td><td>Verzoek om jouw branch te reviewen en te mergen</td></tr><tr><td>Remote (origin)</td><td>De online kopie op GitHub/Azure DevOps/GitLab</td></tr><tr><td>Clone / Pull / Push</td><td>Ophalen van een repo / laatste wijzigingen binnenhalen / jouw commits uploaden</td></tr></tbody></table>
+<h2>Dagelijkse workflow (feature-branch)</h2>
+<pre><code>git pull origin main                     # 1. begin up-to-date
+git checkout -b feature/login-form       # 2. nieuwe branch
+# ... werk aan je code ...
+git status                               # 3. wat is er veranderd?
+git add .                                # 4. wijzigingen klaarzetten
+git commit -m &quot;feat: voeg loginformulier toe met validatie&quot;   # 5. commit
+git push -u origin feature/login-form    # 6. naar remote
+# 7. open een pull request → review → merge in main
+git checkout main &amp;&amp; git pull            # 8. terug naar main en bijwerken</code></pre>
+<h2>Commit-berichten (Conventional Commits)</h2>
+<ul><li>Formaat: type: korte beschrijving in de tegenwoordige tijd (max. 72 tekens).</li><li>Types: feat (nieuwe functie), fix (bugfix), docs, style, refactor, test, chore.</li><li>Voorbeelden: feat: voeg zoekfunctie toe aan boekenlijst · fix: voorkom crash bij lege invoer · test: voeg tests toe voor Bankrekening.</li><li>Commit klein en vaak: één logische wijziging per commit.</li></ul>
+<h2>Branch-afspraken voor teams</h2>
+<ul><li>main is altijd werkend; nooit direct op main committen.</li><li>Branchnamen: feature/&lt;naam&gt;, fix/&lt;naam&gt;, docs/&lt;naam&gt;.</li><li>Elke PR heeft minimaal 1 reviewer; reviewer gebruikt de Code-Review-Checklist.</li><li>Verwijder de branch na de merge.</li><li>.gitignore bevat: venv/, node_modules/, bin/, obj/, .env, *.log, .vs/, .idea/.</li></ul>
+<h2>Merge conflicts oplossen</h2>
+<ol><li>git pull of merge meldt CONFLICT; open het bestand.</li><li>Zoek de markeringen &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD (jouw versie), ======= en &gt;&gt;&gt;&gt;&gt;&gt;&gt; (andere versie).</li><li>Kies of combineer de juiste code en verwijder de markeringen.</li><li>Test of het programma nog werkt.</li><li>git add &lt;bestand&gt; en git commit om de merge af te ronden.</li><li>Voorkom conflicten: pull vaak, werk in kleine branches, spreek af wie aan welk bestand werkt.</li></ol>
+<h2>Handige commando&#x27;s</h2>
+<table><thead><tr><th>Doel</th><th>Commando</th></tr></thead><tbody><tr><td>Geschiedenis bekijken</td><td>git log --oneline --graph --all</td></tr><tr><td>Verschil zien</td><td>git diff</td></tr><tr><td>Laatste commit aanpassen (niet gepusht)</td><td>git commit --amend</td></tr><tr><td>Wijziging ongedaan maken in werkmap</td><td>git restore &lt;bestand&gt;</td></tr><tr><td>Bestand uit staging halen</td><td>git restore --staged &lt;bestand&gt;</td></tr><tr><td>Commit terugdraaien met nieuwe commit</td><td>git revert &lt;hash&gt;</td></tr><tr><td>Tijdelijk werk opzij zetten</td><td>git stash / git stash pop</td></tr><tr><td>Branch verwijderen</td><td>git branch -d feature/x</td></tr></tbody></table>
+<h2>Pull request-checklist</h2>
+<ul><li>Titel en beschrijving: wat en waarom; link naar issue/user story.</li><li>Alle tests slagen; nieuwe code heeft tests.</li><li>Geen secrets, geen debug-prints, geen uitgecommentarieerde code.</li><li>README/documentatie bijgewerkt indien nodig.</li><li>Kleine PR (&lt; 400 regels) zodat review haalbaar is.</li></ul></main><footer>CodeCoach Kennisbank · versie 1.0 · september 2026 · Pas dit materiaal aan op je eigen opleiding.</footer></body></html>

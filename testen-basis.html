@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Testen – basis voor studenten – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<main><h1>Testen – basis voor studenten</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><h2>Waarom testen</h2>
+<ul><li>Je weet zeker dat je code werkt – ook na wijzigingen.</li><li>Tests documenteren wat de code moet doen.</li><li>Bugs vind je vroeger, dus goedkoper.</li></ul>
+<h2>Soorten tests</h2>
+<table><thead><tr><th>Soort</th><th>Wat</th><th>Voorbeeld</th></tr></thead><tbody><tr><td>Unit test</td><td>Eén functie/klasse geïsoleerd</td><td>bereken_btw(100) == 21</td></tr><tr><td>Integratietest</td><td>Meerdere onderdelen samen</td><td>Opslaan in database en weer ophalen</td></tr><tr><td>End-to-end / acceptatietest</td><td>Hele applicatie vanuit gebruiker</td><td>Inloggen en een bestelling plaatsen</td></tr><tr><td>Regressietest</td><td>Controleert dat oude bugs niet terugkomen</td><td>Test die bug #42 reproduceert</td></tr></tbody></table>
+<h2>AAA-patroon</h2>
+<ul><li>Arrange: zet de testsituatie op.</li><li>Act: voer de actie uit.</li><li>Assert: controleer het resultaat.</li></ul>
+<h2>Testcases afleiden uit acceptatiecriteria</h2>
+<p>User story: &#x27;Als student wil ik mijn gemiddelde cijfer zien zodat ik weet of ik geslaagd ben.&#x27; Acceptatiecriteria → testcases:</p>
+<table><thead><tr><th>Criterium</th><th>Testcase</th><th>Verwacht</th></tr></thead><tbody><tr><td>Gemiddelde van cijfers</td><td>[7, 8, 9]</td><td>8.0</td></tr><tr><td>Geen cijfers</td><td>[]</td><td>0 of duidelijke fout</td></tr><tr><td>Eén cijfer</td><td>[6]</td><td>6.0</td></tr><tr><td>Afronding</td><td>[7, 8]</td><td>7.5</td></tr><tr><td>Ongeldig cijfer</td><td>[11]</td><td>ValueError</td></tr></tbody></table>
+<h2>Voorbeelden per taal</h2>
+<h3>Python – pytest</h3>
+<pre><code># test_cijfers.py
+import pytest
+from cijfers import gemiddelde
+
+def test_gemiddelde_normaal():
+    assert gemiddelde([7, 8, 9]) == 8.0
+
+def test_gemiddelde_leeg_geeft_nul():
+    assert gemiddelde([]) == 0
+
+def test_ongeldig_cijfer():
+    with pytest.raises(ValueError):
+        gemiddelde([11])
+# uitvoeren: pytest -v</code></pre>
+<h3>Java – JUnit 5</h3>
+<pre><code>@Test
+void gemiddeldeNormaal() {
+    assertEquals(8.0, Cijfers.gemiddelde(List.of(7, 8, 9)), 0.001);
+}
+@Test
+void ongeldigCijferGeeftException() {
+    assertThrows(IllegalArgumentException.class, () -&gt; Cijfers.gemiddelde(List.of(11)));
+}</code></pre>
+<h3>C# – xUnit</h3>
+<pre><code>[Fact]
+public void Gemiddelde_Normaal_Geeft8()
+{
+    Assert.Equal(8.0, Cijfers.Gemiddelde(new[] { 7, 8, 9 }));
+}
+[Theory]
+[InlineData(new int[] { 6 }, 6.0)]
+[InlineData(new int[] { 7, 8 }, 7.5)]
+public void Gemiddelde_MeerdereGevallen(int[] input, double verwacht)
+{
+    Assert.Equal(verwacht, Cijfers.Gemiddelde(input));
+}</code></pre>
+<h3>JavaScript – Jest</h3>
+<pre><code>test(&#x27;gemiddelde van 7, 8, 9 is 8&#x27;, () =&gt; {
+  expect(gemiddelde([7, 8, 9])).toBe(8);
+});
+test(&#x27;lege lijst geeft 0&#x27;, () =&gt; {
+  expect(gemiddelde([])).toBe(0);
+});</code></pre>
+<h2>Goede tests</h2>
+<ul><li>Eén ding per test; duidelijke naam die het gedrag beschrijft.</li><li>Onafhankelijk van volgorde en van elkaar.</li><li>Snel; geen echte netwerk/database in unit tests (gebruik mocks/fakes).</li><li>Test randgevallen expliciet.</li><li>Tests draaien in CI bij elke push (GitHub Actions).</li></ul>
+<h2>Minimale GitHub Actions-workflow (Python)</h2>
+<pre><code>name: tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: &#x27;3.12&#x27; }
+      - run: pip install -r requirements.txt pytest
+      - run: pytest</code></pre></main><footer>CodeCoach Kennisbank · versie 1.0 · september 2026 · Pas dit materiaal aan op je eigen opleiding.</footer></body></html>
