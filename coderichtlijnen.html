@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Coderichtlijnen voor studenten – CodeCoach Kennisbank</title><link rel="stylesheet" href="../style.css"></head>
-<body><header><a href="../index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
+<title>Coderichtlijnen voor studenten – CodeCoach Kennisbank</title><link rel="stylesheet" href="style.css"></head>
+<body><header><a href="index.html">CodeCoach Kennisbank</a> · <span class="meta" style="color:#dfe">Publieke leerbronnen software development</span></header>
 <main><h1>Coderichtlijnen voor studenten</h1><p class='meta'>Onderdeel van de publieke CodeCoach Kennisbank.</p><p>Deze richtlijnen gebruikt CodeCoach bij code reviews. Vervang of vul aan met de richtlijnen van je opleiding.</p>
 <h2>1. Algemene principes</h2>
 <ul><li>Leesbaarheid boven slimheid: code wordt vaker gelezen dan geschreven.</li><li>Kleine functies met één verantwoordelijkheid (max. ± 20–30 regels).</li><li>Betekenisvolle namen: een naam vertelt wat iets is of doet (aantalStudenten, berekenTotaal()).</li><li>Geen magic numbers: gebruik constanten (MAX_POGINGEN = 3).</li><li>DRY – Don&#x27;t Repeat Yourself: herhaalde code wordt een functie.</li><li>KISS – Keep It Simple: kies de eenvoudigste oplossing die werkt.</li><li>Fouten netjes afhandelen: nooit lege catch/except-blokken.</li><li>Geen wachtwoorden, API-keys of verbindingsstrings in code; gebruik omgevingsvariabelen of een .env-bestand dat in .gitignore staat.</li></ul>
